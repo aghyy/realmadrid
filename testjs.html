@@ -1,0 +1,93 @@
+<body></body>
+
+<script>
+
+var textElem = document.createElement("div");
+document.body.appendChild(textElem);
+	
+var corsProxy = "https://api.codetabs.com/v1/proxy?quest=";
+var parser = new DOMParser();
+var url = "https://tipsscore.com/en/football/team/real-madrid";
+fetch(corsProxy + url)
+	.then(response => response.text())
+	.then(response => {
+		var dict = [];
+		var html = parser.parseFromString(response, "text/html");
+		var matches = html.querySelectorAll(".event");
+		matches.forEach((match, key, arr) => {
+			var md = match.querySelector(".initialism").title;
+			var day = md.split("-")[0];
+			var month = md.split("-")[1];
+			var year = md.split("-")[2].split(" ")[0];
+			var time = md.split(" ")[1].replace(/ UTC/, ":00");
+			var date = year + "-" + month + "-" + day + "T" + time
+			var parsedDate = new Date(Date.parse(date));
+			var match_url = match.querySelector("a.text-body").href;
+			fetch(corsProxy + match_url)
+				.then(response => response.text())
+				.then(response => {
+					var html = parser.parseFromString(response, "text/html");
+					var home_team = html.querySelector(".order-0 .text-primary").textContent.trim();
+					var away_team = html.querySelector(".order-1 .text-primary").textContent.trim();
+					var leagueElem = html.querySelector(".order-0").parentNode.parentNode.children[0].children[2];
+					var league = leagueElem.textContent.trim();
+					var home_logo = html.querySelector(".order-0 img").src.trim();
+					var away_logo = html.querySelector(".order-1 img").src.trim();
+					try {
+						var score = html.title.split("(")[1].split(")")[0];
+						var home_score = score.split("-")[0];
+						var away_score = score.split("-")[1];
+					} catch (error) {
+						var home_score = "";
+						var away_score = "";
+					}
+					
+					dict.push({
+						home_team: {
+							name: home_team,
+							logo: home_logo
+						},
+						away_team: {
+							name: away_team,
+							logo: away_logo
+						},
+						start_at: parsedDate,
+						league: {
+							name: league
+						},
+						home_score: {
+							current: home_score
+						},
+						away_score: {
+							current: away_score
+						}
+					});
+					if (key === arr.length - 1) {
+						dict.sort((a, b) => a.start_at - b.start_at);
+						dict.forEach(match => {
+							var matchDate = new Date(Date.parse(match.start_at));
+							var dateNow = new Date();
+							if (matchDate > dateNow) {
+								addMatch(match, true);
+							} else {
+								addMatch(match, false);
+								scrollMatchesIndex += 1;
+							}
+						});
+						scrollMatches(0);
+						var rm = document.createElement("div");
+						rm.setAttribute("class", "matchesMargin");
+						document.getElementById("nextMatches").appendChild(rm);
+					}
+				})
+				.catch(err => {
+					document.querySelector(".outerNextUp").style.display = "none";
+				});
+		});
+	})
+	.catch(err => {
+		document.querySelector(".outerNextUp").style.display = "none";
+	});
+
+
+</script>
