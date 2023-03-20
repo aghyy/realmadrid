@@ -1259,7 +1259,6 @@ h1 > ion-icon {
 }
 
 .obligatory img {
-	pointer-events: none;
 	height: calc(100% - 10px);
 	position: absolute;
 	left: 15px;
