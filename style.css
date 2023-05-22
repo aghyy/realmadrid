@@ -1244,6 +1244,7 @@ h1 > ion-icon {
 	/*Obligatory CSS Start*/
 	position: fixed;
 	left: -80px;
+	top: 0;
 	border-bottom: 2px solid #2f2f2f;
 	margin-left: 80px;
 	padding-right: 80px;
