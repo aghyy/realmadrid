@@ -84,6 +84,7 @@ if (document.title === "Real Madrid - Titles") {
 	liArray.forEach(function(elem) {
 	    elem.addEventListener("click", function() {
 			var trophyYears = document.getElementById("trophyYears");
+			trophyYears.innerHTML = '<ion-icon class="closeTYbtn" onclick="hideTrophyYears();" name="close-outline"></ion-icon>';
 			trophyYears.style.display = "flex";
 	        var years = elem.dataset.years;
 			var yearPar = document.createElement("div");
