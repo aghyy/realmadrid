@@ -111,7 +111,7 @@ body, html {
 		position: static !important;
 		text-align: center;
 	}
-	.bg_logo {
+	.bg-logo {
 		width: 50% !important;
 	}
 	.textImg {
@@ -170,6 +170,13 @@ body, html {
 	}
 	.kits {
 		grid-template-columns: minmax(0, 1fr) !important;
+	}
+	.disclaimer {
+		position: relative !important;
+		top: auto !important;
+		left: auto !important;
+		transform: none !important;
+		width: calc(100% - 4vw) !important;
 	}
 }
 
@@ -297,6 +304,7 @@ body, html {
 
 .outer-main {
 	margin: 2vw;
+	padding-bottom: 250px;
 }
 
 .main {
@@ -344,7 +352,7 @@ body, html {
 	pointer-events: none;
 }
 
-.bg_logo {
+.bg-logo {
 	margin: 0 auto;
 	width: 30%;
 	pointer-events: none;
@@ -869,6 +877,11 @@ h3 {
 	-webkit-box-orient: vertical;
 }
 
+.outer-footer {
+	position: relative;
+	width: 100%;
+}
+
 .footer {
 	background: var(--theme-color);
 	color: #fff;
@@ -878,8 +891,8 @@ h3 {
 	justify-content: center;
 	align-items: center;
 	padding: 15px 0;
-	position: relative;
-	margin-top: 5vw;
+	position: absolute;
+	bottom: 0;
 }
 
 .footer > p:last-of-type {
@@ -1240,16 +1253,9 @@ h1 > ion-icon {
 	margin-left: 10px;
 }
 
-.obligatory {
-	/*Obligatory CSS Start*/
+.top-nav {
 	position: fixed;
-	left: -80px;
-	top: 0;
-	border-bottom: 2px solid #2f2f2f;
-	margin-left: 80px;
-	padding-right: 80px;
 	background-color: var(--theme-color);
-	/*Obligatory CSS End*/
 	z-index: 5;
 	display: none;
 	justify-content: center;
@@ -1259,9 +1265,40 @@ h1 > ion-icon {
 	color: #fff;
 }
 
-.obligatory img {
+.top-nav img {
 	height: calc(100% - 10px);
 	position: absolute;
 	left: 15px;
 	top: 5px;
+}
+
+.disclaimer {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 80%;
+	padding: 2vh 2vw;
+}
+
+.obl-opt {
+	width: calc(100% - 320px);
+	border-bottom-left-radius: 25px;
+	border-bottom-right-radius: 25px;
+	overflow: hidden;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: #fff;
+	padding-left: 80px;
+	z-index: 100;
+}
+
+.obligatory {
+	position: fixed;
+	top: 0;
+	left: 80px;
+	border-bottom: 2px solid #2f2f2f;
+	padding-right: 80px;
+	background-color: var(--theme-color);
 }
